@@ -9,7 +9,7 @@ public interface FlorService {
     public void addFlor(FlorEntity florEntity);
     public void updateFlor(FlorEntity florEntity);
     public void deleteFlor(Integer id);
-    public FlorEntity getOneFlor(Integer id);
+    public FlorDTO getOneFlor(Integer id);
     public FlorDTO florEntityToDTO(FlorEntity florEntity);
     public List<FlorDTO> getAllFlor();
 }
