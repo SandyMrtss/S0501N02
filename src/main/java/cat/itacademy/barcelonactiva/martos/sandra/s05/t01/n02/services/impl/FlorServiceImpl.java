@@ -41,10 +41,10 @@ public class FlorServiceImpl implements FlorService {
     }
 
     @Override
-    public FlorDTO getOneFlor(Integer id) {
+    public FlorEntity getOneFlor(Integer id) {
         Optional<FlorEntity> flor = florRepository.findById(id);
         if(flor.isPresent()){
-            return florEntityToDTO(flor.get());
+            return flor.get();
         }
         else {
             throw new EntityNotFoundException();
