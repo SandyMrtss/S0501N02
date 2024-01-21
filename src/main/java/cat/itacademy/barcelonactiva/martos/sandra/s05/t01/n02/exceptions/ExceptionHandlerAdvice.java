@@ -8,32 +8,38 @@ import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.BindErrorUtils;
 
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex){
-        return ResponseEntity.badRequest().body("Input not valid\n" + BindErrorUtils.resolveAndJoin(ex.getFieldErrors()));
+        return ResponseEntity.badRequest().body("Les dades no són vàlides\n" + BindErrorUtils.resolveAndJoin(ex.getFieldErrors()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleNotFoundException(EntityNotFoundException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No element found with this id");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No s'ha trobat cap element amb aquest id");
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<String> handlePrimaryKeyViolation(DataIntegrityViolationException ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Element already exists");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Ja existeix un element amb aquest nom");
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleInvalidInput(HttpMessageConversionException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect data type");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Format de dades incorrecte");
     }
 
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleGeneralException(Exception ex){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something unexpected went wrong\n" + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Alguna cosa inesperada ha anat malament\n" + ex.getMessage());
     }
 }

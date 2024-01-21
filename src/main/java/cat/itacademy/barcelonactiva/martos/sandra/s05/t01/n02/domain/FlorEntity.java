@@ -11,11 +11,11 @@ public class FlorEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pk_FlorID;
     @Column(nullable = false)
-    @Size(min = 4, max = 40, message = "{Size.Flor.nomFlor}")
-    @NotBlank(message = "{NotBlank.Flor.nomFlor}")
+    @Size(min = 4, max = 40, message = "El nom ha de tenir entre 4 i 40 caràcters")
+    @NotBlank(message = "El nom no pot estar en blanc")
     private String nomFlor;
     @Column(nullable = false)
-    @NotBlank(message = "{NotBlank.Flor.paisFlor}")
+    @NotBlank(message = "{El pais no pot estar en blanc")
     private String paisFlor;
 
     public FlorEntity() {

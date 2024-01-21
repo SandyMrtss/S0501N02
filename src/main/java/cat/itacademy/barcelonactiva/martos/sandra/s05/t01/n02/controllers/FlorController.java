@@ -3,7 +3,6 @@ package cat.itacademy.barcelonactiva.martos.sandra.s05.t01.n02.controllers;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t01.n02.domain.FlorEntity;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t01.n02.dto.FlorDTO;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t01.n02.services.FlorService;
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t01.n02.services.impl.FlorServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class FlorController {
     @PostMapping("/add")
     public ResponseEntity<String> createFlor(@Valid @RequestBody FlorEntity flor){
         florService.addFlor(flor);
-        return new ResponseEntity<>("Flower successfully created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Flor creada correctament", HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateFlor(@PathVariable("id") Integer id, @Valid @RequestBody FlorEntity flor){
@@ -32,13 +31,13 @@ public class FlorController {
         _flor.setNomFlor(flor.getNomFlor());
         _flor.setPaisFlor(flor.getPaisFlor());
         florService.updateFlor(_flor);
-        return new ResponseEntity<>("FlorEntity successfully updated", HttpStatus.OK);
+        return new ResponseEntity<>("Flor actualitzada correctament", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteFlorEntity(@PathVariable("id") Integer id){
         florService.deleteFlor(id);
-        return new ResponseEntity<>("FlorEntity successfully deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Flor eliminada correctament", HttpStatus.OK);
     }
 
     @GetMapping("/getOne/{id}")
